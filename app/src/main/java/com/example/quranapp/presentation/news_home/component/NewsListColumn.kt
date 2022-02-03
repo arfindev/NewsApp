@@ -22,7 +22,7 @@ fun NewsListColumn(
         Text(text = "Latest News", style = MaterialTheme.typography.body1)
         IconButton(
             onClick = {
-                //To Get Latest News this is the thing
+                //To Get Latest News
             },
         ) {
             Icon(
