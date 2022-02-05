@@ -13,6 +13,7 @@ import javax.inject.Inject
 class NewsListUseCase @Inject constructor(private val repository: NewsRepository) {
 
     operator fun invoke(): Flow<Resource<List<NewsData>>> = flow {
+        kotlinx.coroutines.delay(1000L)
         try {
             emit(Resource.Loading())
             val news = repository.getAllNews().map { it.toNewsData() }

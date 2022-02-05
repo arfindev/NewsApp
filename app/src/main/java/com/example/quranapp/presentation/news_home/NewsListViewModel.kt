@@ -3,9 +3,11 @@ package com.example.quranapp.presentation.news_home
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.quranapp.common.Resource
 import com.example.quranapp.domain.use_case.NewsListUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
 
@@ -16,7 +18,12 @@ class NewsListViewModel @Inject constructor(
     private val _state = mutableStateOf(NewsState())
     val state: State<NewsState> = _state
 
-    fun getAllNewsList() {
+
+    init {
+        getAllNewsList()
+    }
+
+    private fun getAllNewsList() {
         useCase().onEach { result ->
             when (result) {
                 is Resource.Success -> {
@@ -29,8 +36,7 @@ class NewsListViewModel @Inject constructor(
                     _state.value = NewsState(isLoading = true)
                 }
             }
-
-        }
+        }.launchIn(viewModelScope)
     }
 
 

@@ -1,10 +1,17 @@
 package com.example.quranapp.data.remote
 
+import com.example.quranapp.common.Constant.API_KEY
 import com.example.quranapp.data.remote.dto.NewsDto
 import retrofit2.http.GET
+import retrofit2.http.Query
 
 interface NewsApi {
-    @GET("/everything?q=apple&from=2022-02-01&to=2022-02-01&sortBy=popularity&apiKey=435ef6b3a2f349d4a4539b5629374739")
-    suspend fun getAppleNews():List<NewsDto>
 
+    @GET("/v2/everything")
+    suspend fun getAppleNews(
+        @Query("q")
+        getAppleNews: String = "apple",
+        @Query("apiKey")
+        apiKey: String = API_KEY,
+    ): List<NewsDto>
 }
